@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="anyx_social.authentication.manager.class">Anyx\SocialBundle\Authentication\Manager</parameter>
+        <parameter key="anyx_social.provider.factory.class">Anyx\SocialBundle\Provider\Factory</parameter>
+        <parameter key="anyx_social.provider.facebook.class">Anyx\SocialBundle\Provider\FacebookProvider</parameter>
+        <parameter key="anyx_social.provider.twitter.class">Anyx\SocialBundle\Provider\TwitterProvider</parameter>
+	</parameters>
+
+    <services>
+        <service id="anyx_social.provider.factory" class="%anyx_social.provider.factory.class%">
+             <argument type="service" id="buzz"/>
+        </service>
+
+		<service id="anyx_social.authentication.manager" class="%anyx_social.authentication.manager.class%">
+             <argument type="service" id="anyx_social.provider.factory"/>
+        </service>
+	</services>
+
+</container>

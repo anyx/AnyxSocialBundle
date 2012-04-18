@@ -28,12 +28,16 @@ abstract class OAuthProvider
     /**
 	 * 
 	 * @param Request $request
+	 * @throws Anyx\SocialBundle\Authentication\Exception
+	 * 
+	 * @return Anyx\SocialBundle\Authentication\AccessToken;
      */
     abstract public function getAccessToken( Request $request );
 
 	/**
 	 * 
 	 * @param Authentication\AccessToken $accessToken
+	 * @return array
 	 */
 	abstract public function getUserData( Authentication\AccessToken $accessToken );
 
@@ -96,4 +100,19 @@ abstract class OAuthProvider
 	public function getBrowser() {
 		return $this->browser;
 	}
+	
+    /**
+     * {@inheritDoc}
+     */
+    protected function getAuthorizationUrl()
+    {
+        $parameters = array(
+            'response_type' => 'code',
+            'client_id'     => $this->getOption('client_id'),
+            'scope'         => $this->getOption('scope'),
+            'redirect_uri'  => $this->getRedirectUri()
+        );
+
+        return $this->getOption('authorization_url').'?'.http_build_query($parameters);
+    }	
 }

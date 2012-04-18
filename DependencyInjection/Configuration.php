@@ -35,27 +35,8 @@ class Configuration implements ConfigurationInterface
 							->scalarNode('secret')
 							->end()	
 							->scalarNode('scope')
-							->end()	
-							->arrayNode('fields_map')
-									->beforeNormalization()
-										->ifTrue(function($fieldsMap) {
-											return count( array_diff( array_keys( $fieldsMap ), array( 'accountId', 'userName' ))) > 0;
-										})
-										->then(function($fieldsMap) {
-											foreach( $fieldsMap as $accountField => $userFieldName ) {
-												if( !in_array( $accountField, array( 'accountId', 'userName' ) ) ) {
-													//unset( $fieldsMap[$accountField] );
-												}
-											}
-											return $fieldsMap;
-										})
-										->end()
-								->children()
-									->scalarNode('accountId')
-									->end()	
-									->scalarNode('userName')
-									->end()
 							->end()
+							->scalarNode('user_fields')
 				->end();
 
         return $treeBuilder;

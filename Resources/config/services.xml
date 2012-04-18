@@ -9,6 +9,7 @@
         <parameter key="anyx_social.provider.factory.class">Anyx\SocialBundle\Provider\Factory</parameter>
         <parameter key="anyx_social.provider.facebook.class">Anyx\SocialBundle\Provider\FacebookProvider</parameter>
         <parameter key="anyx_social.provider.twitter.class">Anyx\SocialBundle\Provider\TwitterProvider</parameter>
+        <parameter key="anyx_social.provider.vkontakte.class">Anyx\SocialBundle\Provider\VkontakteProvider</parameter>
 	</parameters>
 
     <services>

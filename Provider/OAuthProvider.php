@@ -114,5 +114,12 @@ abstract class OAuthProvider
         );
 
         return $this->getOption('authorization_url').'?'.http_build_query($parameters);
-    }	
+    }
+	
+	/**
+	 * 
+	 */
+	protected function getSessionKey() {
+		return 'Login' . get_class( $this );
+	}
 }

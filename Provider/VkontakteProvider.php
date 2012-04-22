@@ -24,11 +24,19 @@ class VkontakteProvider extends OAuthProvider {
     /**
 	 * 
 	 * @param Request $request
+	 * @todo refactoring
 	 * 
 	 * @return Anyx\SocialBundle\Authentication\AccessToken;
      */
     public function getAccessToken( Request $request ) {
 
+		if ( $request->get('error', false) != false ) {
+			if ( $request->get('error', 'access_denied') ) {
+				throw new Authentication\UserDeniedException( 'User rejected authorization' );
+			}
+			throw new Authentication\Exception( 'Autorization error' );
+		}
+		
 		if ( $request->get('code') == null ) {
 			$response = new RedirectResponse( $this->getAuthorizationUrl() );
 			return $response->send();

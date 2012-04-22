@@ -18,6 +18,7 @@ class Manager {
 
 	/**
 	 *
+	 * @param Provider\Factory $factory 
 	 */
 	public function __construct( Provider\Factory $factory ) {
 		$this->providerFactory = $factory;
@@ -35,6 +36,7 @@ class Manager {
 	 *
 	 * @param type $service
 	 * @param Request $request 
+	 * @return Anyx\SocialBundle\Authentication\AccessToken
 	 */
 	public function getAccessToken( $service, Request $request ) {
 

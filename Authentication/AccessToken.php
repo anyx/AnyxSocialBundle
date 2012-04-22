@@ -8,7 +8,6 @@ namespace Anyx\SocialBundle\Authentication;
 class AccessToken {
 
 	/**
-	 *
 	 * @var string 
 	 */
 	private $token;
@@ -52,6 +51,7 @@ class AccessToken {
 	/**
 	 *
 	 * @param string $name 
+	 * @return bool
 	 */
 	public function hasParam( $name ) {
 		return array_key_exists($name, $this->params);
@@ -60,6 +60,7 @@ class AccessToken {
 	/**
 	 *
 	 * @param string $name 
+	 * @return mixed
 	 */
 	public function getParam( $name ) {
 		
@@ -72,7 +73,7 @@ class AccessToken {
 	
 	/**
 	 *
-	 * @return type 
+	 * @return string 
 	 */
 	public function __toString() {
 		return $this->getToken();

@@ -25,7 +25,7 @@ class TwitterProvider extends OAuthProvider {
         'user_data_url'		=> 'http://api.twitter.com/1/users/show.json',
 	);
 
-    /**
+	/**
      * {@inheritDoc}
      */
     public function getUserData( Authentication\AccessToken $accessToken)
@@ -47,12 +47,16 @@ class TwitterProvider extends OAuthProvider {
     public function getAccessToken( Request $request  )
     {
 		$oauthToken = $request->get('oauth_token');
+
+		if ( $request->get( 'denied', false ) != false ) {
+			throw new Authentication\UserDeniedException( 'User rejected authorization' );
+		}
 		
 		if ( !empty( $oauthToken ) ) {
 
 			$response = $this->request($this->getOption('access_token_url'), array(
-				'oauth_verifier'		=> $request->get('oauth_verifier'),
-				'oauth_token'			=> $request->get('oauth_token')
+				'oauth_verifier'	=> $request->get('oauth_verifier'),
+				'oauth_token'		=> $request->get('oauth_token')
 			));			
 
 			$result = array();
@@ -66,7 +70,7 @@ class TwitterProvider extends OAuthProvider {
 
 			return new Authentication\AccessToken( $token, $result ); 
 		}
-			
+
 		$requestToken = $this->getRequestToken( $request );
 		
 		$parameters = array_merge( array(

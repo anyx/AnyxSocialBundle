@@ -23,6 +23,13 @@ class FacebookProvider extends OAuthProvider {
      */
     public function getAccessToken(Request $request )
     {
+
+		if ( $request->get('error', false) != false ) {
+			if ( $request->get('error', 'access_denied') ) {
+				throw new Authentication\UserDeniedException( 'User rejected authorization' );
+			}
+			throw new Authentication\Exception( 'Autorization error' );
+		}
 		
 		if ( $request->get('code') == null ) {
 			$response = new RedirectResponse( $this->getAuthorizationUrl() );
@@ -38,7 +45,7 @@ class FacebookProvider extends OAuthProvider {
         );
 
 		$response = $this->getBrowser()->call(
-				$this->getOption('access_token_url') . '?' . http_build_query($parameters),
+				$this->getOption('access_token_url') . '?' . http_build_query( $parameters ),
 				'GET'
 		);
 

@@ -85,7 +85,7 @@ class Factory {
 	 * @param string $name
 	 * @throws \InvalidArgumentException 
 	 */
-	protected function getProviderOptions( $name ) {
+	public function getProviderOptions( $name ) {
 		if ( !array_key_exists($name, $this->servicesConfig) ) {
 			throw new \InvalidArgumentException("Provider '$name' is not registered ");
 		}

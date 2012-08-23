@@ -1,0 +1,25 @@
+{
+    "name": "anyx/social-bundle",
+    "description": "Bundle for retrieving access tokens from social services through OAuth",
+    "type": "symfony-bundle",                
+    "authors": [
+        {
+            "name": "Aleksandr Klimenkov",
+            "email": "alx.devel@gmail.com"
+        }
+    ],
+    "version": "0.9",
+    "source": {
+        "type": "git",
+        "url": "https://github.com/anyx/AnyxSocialBundle.git",
+        "reference": "master"
+    },
+    "require": {
+        "php": ">=5.3.2",
+        "sensio/buzz-bundle": ">=0.1"
+    },
+    "target-dir": "Anyx/SocialBundle",
+    "autoload": {
+        "psr-0": { "Anyx\\SocialBundle": "" }
+    }
+}

@@ -64,9 +64,16 @@ class FacebookProvider extends OAuthProvider {
      */
     public function getUserData( Authentication\AccessToken $accessToken )
     {
-        $url = $this->getOption('user_data_url').'?'.http_build_query(array(
+        $params = array(
             'access_token' => $accessToken->getToken()
-        ));
+        );
+
+        $userFields = $this->getOption('user_fields');
+        if ( !empty( $userFields ) ) {
+            $params['fields'] = $userFields;
+        }
+
+        $url = $this->getOption('user_data_url').'?'.http_build_query($params);
 
         $content = $this->getBrowser()->call($url, 'GET')->getContent();
 
